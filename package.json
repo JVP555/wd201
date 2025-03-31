@@ -1,0 +1,24 @@
+{
+  "name": "wd201",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JVP555/wd201.git"
+  },
+  "keywords": [],
+  "author": "JVP555",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JVP555/wd201/issues"
+  },
+  "homepage": "https://github.com/JVP555/wd201#readme",
+  "description": "",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}

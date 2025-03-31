@@ -30,8 +30,8 @@ const todoList = () => {
             ? `[ ] ${l.title}`
             : `[ ] ${l.title} ${l.dueDate}`
           : isToday
-          ? `[x] ${l.title}`
-          : `[x] ${l.title} ${l.dueDate}`;
+            ? `[x] ${l.title}`
+            : `[x] ${l.title} ${l.dueDate}`;
       })
       .join("\n");
   };
@@ -60,10 +60,10 @@ const formattedDate = (d) => {
 var dateToday = new Date();
 const today = formattedDate(dateToday);
 const yesterday = formattedDate(
-  new Date(new Date().setDate(dateToday.getDate() - 1))
+  new Date(new Date().setDate(dateToday.getDate() - 1)),
 );
 const tomorrow = formattedDate(
-  new Date(new Date().setDate(dateToday.getDate() + 1))
+  new Date(new Date().setDate(dateToday.getDate() + 1)),
 );
 
 todos.add({ title: "Submit assignment", dueDate: yesterday, completed: false });
@@ -91,3 +91,5 @@ let itemsDueLater = todos.dueLater();
 let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater);
 console.log(formattedItemsDueLater);
 console.log("\n\n");
+
+module.exports = todoList;
