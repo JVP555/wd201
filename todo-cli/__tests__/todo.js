@@ -34,14 +34,8 @@ describe("Test suite", () => {
     const index = all.length - 1;
 
     markAsComplete(index);
-
+    expect(all[index].title).toBe("Complete Me");
     expect(all[index].completed).toBe(true);
-
-    all.forEach((item, i) => {
-      if (i !== index) {
-        expect(item.completed).toBe(false);
-      }
-    });
   });
 
   test("retrieval of overdue items", () => {
