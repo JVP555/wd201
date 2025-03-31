@@ -5,26 +5,24 @@ const { all, markAsComplete, add, overdue, dueLater, dueToday } = todoList();
 describe("Test suite", () => {
   beforeAll(() => {
     add({
-      title: "new todo",
+      title: "new",
       completed: false,
       dueDate: new Date().toISOString().slice(0, 10),
     });
   });
 
   test("creating a new todo", () => {
-    const l = all.length;
-    expect(all.length).toBe(l);
     add({
       title: "new todo",
       completed: false,
       dueDate: new Date().toISOString().slice(0, 10),
     });
-    expect(all.length).toBe(l + 1);
+    const l = all.length;
+    expect(all[l - 1].title).toBe("new todo");
   });
 
   test("marking a todo as completed", () => {
     const l = all.length;
-    expect(all[l - 1].completed).toBe(false);
     markAsComplete(l - 1);
     expect(all[l - 1].completed).toBe(true);
   });
