@@ -18,9 +18,11 @@
     "typescript-eslint": "^8.28.0"
   },
   "eslintConfig": {
-    "extends": ["eslint:recommended"],
+    "extends": [
+      "eslint:recommended"
+    ],
     "rules": {
-      "no-unused-vars": "off" 
+      "no-unused-vars": "off"
     }
   },
   "lint-staged": {
