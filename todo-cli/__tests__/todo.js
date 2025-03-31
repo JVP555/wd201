@@ -5,26 +5,37 @@ const { all, markAsComplete, add, overdue, dueLater, dueToday } = todoList();
 describe("Test suite", () => {
   beforeAll(() => {
     add({
-      title: "new",
+      title: "Initial Todo",
       completed: false,
       dueDate: new Date().toISOString().slice(0, 10),
     });
   });
 
   test("creating a new todo", () => {
+    const initialLength = all.length;
     add({
-      title: "new todo",
+      title: "New Todo",
       completed: false,
       dueDate: new Date().toISOString().slice(0, 10),
     });
-    const l = all.length;
-    expect(all[l - 1].title).toBe("new todo");
+
+    expect(all.length).toBe(initialLength + 1);
+    const addedTodo = all[all.length - 1];
+    expect(addedTodo.title).toBe("New Todo");
+    expect(addedTodo.completed).toBe(false);
   });
 
   test("marking a todo as completed", () => {
-    const l = all.length;
-    markAsComplete(l - 1);
-    expect(all[l - 1].completed).toBe(true);
+    const initialLength = all.length;
+
+    add({
+      title: "Complete Me",
+      completed: false,
+      dueDate: new Date().toISOString().slice(0, 10),
+    });
+
+    markAsComplete(initialLength);
+    expect(all[initialLength].completed).toBe(true);
   });
 
   test("retrieval of overdue items", () => {
@@ -43,9 +54,7 @@ describe("Test suite", () => {
     const today = new Date().toISOString().slice(0, 10);
 
     duetoday.forEach((item) => {
-      const itemDate = new Date(item.dueDate);
-      const todayDate = new Date(today);
-      expect(itemDate).toEqual(todayDate);
+      expect(item.dueDate).toBe(today);
     });
   });
 
