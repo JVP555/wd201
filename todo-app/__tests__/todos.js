@@ -84,7 +84,7 @@ describe("Todo Application", function () {
 
     const deleteResponse = await agent.delete(`/todos/${todoID}`);
     expect(deleteResponse.status).toBe(200);
-    expect(deleteResponse.body).toEqual({ success: true });
+    expect(deleteResponse.body).toEqual(true);
 
     const deletedTodo = await db.Todo.findByPk(todoID);
     expect(deletedTodo).toBeNull();
