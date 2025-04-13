@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todos</title>
+</head>
+<body>
+  <table border="1">
+    <% for (var i = 0; i < allTodos.length; i++) { %>
+    <tr>
+      <td><%= allTodos[i].title %></td>
+      <td><%= allTodos[i].dueDate %></td>
+      <td><%= allTodos[i].completed %></td>
+    </tr>
+    <% } %>
+  </table>
+</body>
+</html>

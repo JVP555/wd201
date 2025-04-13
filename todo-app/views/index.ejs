@@ -7,20 +7,10 @@
     </head>
     <body>
         <%- include('header.ejs') %>
-        <table>
-            <% for (var i = 0; i < allTodos.length; i++) { %>
-            <tr>
-                <td>
-                <%= allTodos[i].title %>
-                </td>
-                <td>
-                <%= allTodos[i].dueDate %>
-                </td>
-                <td>
-                <%= allTodos[i].completed %>
-                </td>
-            </tr>
-            <% } %>
-        </table>
+        <h1>Todo List</h1>
+        <div class="container">
+            <%- include('todos.ejs') %>
+        </div>
+        <%- include('footer.ejs') %>
     </body>
 </html>

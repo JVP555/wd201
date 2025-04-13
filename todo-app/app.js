@@ -20,7 +20,7 @@ app.get("/", async (request, response) => {
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/todos", async function (_request, response) {
+app.get("/todos", async function (request, response) {
   try {
     const todos = await Todo.findAll();
     return response.json(todos);
