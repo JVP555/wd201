@@ -1,5 +1,8 @@
 <!-- Overdue -->
-<h5 id="count-overdue" class="text-red-600 font-semibold text-lg mb-2">Overdue (<%= overdue.length %>)</h5>
+ <div class="text-red-600 font-semibold text-lg mb-2 flex">
+  <h5 >Overdue</h5>
+  <h5 id="count-overdue" class="ml-2"></h5>(<%= overdue.length %>)</h5>
+ </div>
 <ul class="space-y-2">
   <% overdue.forEach(todo => { %>
     <li class="Todo-Item flex items-center w-fit p-2 rounded hover:bg-purple-50 cursor-pointer">
@@ -21,7 +24,10 @@
 </ul>
 
 <!-- Due Today -->
-<h5 id="count-due-today" class="text-blue-600 font-semibold text-lg mb-2">Due Today (<%= dueToday.length %>)</h5>
+<div class="text-yellow-600 font-semibold text-lg mb-2 flex">
+  <h5 >Due Today</h5>
+  <h5 id="count-due-today" class="ml-2"></h5>(<%= dueToday.length %>)</h5>
+ </div>
 <ul class="space-y-2">
   <% dueToday.forEach(todo => { %>
     <li class="Todo-Item flex items-center w-fit p-2 rounded hover:bg-purple-50 cursor-pointer">
@@ -43,7 +49,10 @@
 </ul>
 
 <!-- Due Later -->
-<h5 id="count-due-later" class="text-green-600 font-semibold text-lg mb-2">Due Later (<%= dueLater.length %>)</h5>
+<div class="text-green-600 font-semibold text-lg mb-2 flex">
+  <h5 >Due Later</h5>
+  <h5 id="count-due-later" class="ml-2"></h5>(<%= dueLater.length %>)</h5>
+ </div>
 <ul class="space-y-2">
   <% dueLater.forEach(todo => { %>
     <li class="Todo-Item flex items-center w-fit p-2 rounded hover:bg-purple-50 cursor-pointer">
