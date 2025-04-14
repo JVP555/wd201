@@ -1,5 +1,5 @@
 <!-- Overdue -->
-<h5 class="text-red-600 font-semibold text-lg mb-2 inline-block">Overdue</h5>
+<h5 id="Overdue" class="text-red-600 font-semibold text-lg mb-2 inline-block">Overdue</h5>
 <h5 id="count-overdue" class="text-red-600 font-semibold text-lg mb-2 inline-block">(<%= overdue.length %>)</h5>
 <ul class="space-y-2">
   <% overdue.forEach(todo => { %>
@@ -22,7 +22,7 @@
 </ul>
 
 <!-- Due Today -->
-<h5 class="text-blue-600 font-semibold text-lg mb-2 inline">Due Today</h5>
+<h5 id="Due Today" class="text-blue-600 font-semibold text-lg mb-2 inline">Due Today</h5>
 <h5 id="count-due-today" class="text-blue-600 font-semibold text-lg mb-2 inline">(<%= dueToday.length %>)</h5>
 <ul class="space-y-2">
   <% dueToday.forEach(todo => { %>
@@ -45,7 +45,7 @@
 </ul>
 
 <!-- Due Later -->
-<h5 class="text-green-600 font-semibold text-lg mb-2 inline">Due Later</h5>
+<h5 id="Due Later" class="text-green-600 font-semibold text-lg mb-2 inline">Due Later</h5>
 <h5 id="count-due-later" class="text-green-600 font-semibold text-lg mb-2 inline">(<%= dueLater.length %>)</h5>
 <ul class="space-y-2">
   <% dueLater.forEach(todo => { %>
