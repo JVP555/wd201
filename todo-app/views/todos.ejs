@@ -1,68 +1,74 @@
-<!-- Overdue -->
-<h5 title="Overdue" class="text-red-600 font-semibold text-lg mb-2 inline-block">Overdue</h5>
-<h5 id="count-overdue" class="text-red-600 font-semibold text-lg mb-2 inline-block">(<%= overdue.length %>)</h5>
-<ul class="space-y-2">
-  <% overdue.forEach(todo => { %>
-    <li class="Todo-Item flex items-center w-fit p-2 rounded hover:bg-purple-50 cursor-pointer">
-      <form method="POST" action="/todos/<%= todo.id %>/markAsCompleted?_method=PUT">
-        <input type="checkbox" id="checkbox-overdue-<%= todo.id %>" onchange="this.form.submit()" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" <%= todo.completed ? 'checked' : '' %> />
-      </form>
-      <label for="checkbox-overdue-<%= todo.id %>" class="ml-2 text-sm text-gray-600 cursor-pointer">
-        <%= todo.title %> - <%= todo.dueDate %>
-      </label>
-      <form method="POST" action="/todos/<%= todo.id %>?_method=DELETE">
-        <button type="submit" class="hidden trash-icon ml-2">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-          </svg>          
-        </button>
-      </form>
-    </li>
-  <% }) %>
-</ul>
-
-<!-- Due Today -->
-<h5 title="Due Today" class="text-blue-600 font-semibold text-lg mb-2 inline">Due Today</h5>
-<h5 id="count-due-today" class="text-blue-600 font-semibold text-lg mb-2 inline">(<%= dueToday.length %>)</h5>
-<ul class="space-y-2">
-  <% dueToday.forEach(todo => { %>
-    <li class="Todo-Item flex items-center w-fit p-2 rounded hover:bg-purple-50 cursor-pointer">
-      <form method="POST" action="/todos/<%= todo.id %>/markAsCompleted?_method=PUT">
-        <input type="checkbox" id="checkbox-due-today-<%= todo.id %>" onchange="this.form.submit()" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" <%= todo.completed ? 'checked' : '' %> />
-      </form>
-      <label for="checkbox-due-today-<%= todo.id %>" class="ml-2 text-sm text-gray-600 cursor-pointer">
-        <%= todo.title %> - <%= todo.dueDate %>
-      </label>
-      <form method="POST" action="/todos/<%= todo.id %>?_method=DELETE">
-        <button type="submit" class="hidden trash-icon ml-2">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-          </svg>          
-        </button>
-      </form>
-    </li>
-  <% }) %>
-</ul>
-
-<!-- Due Later -->
-<h5 title="Due Later" class="text-green-600 font-semibold text-lg mb-2 inline">Due Later</h5>
-<h5 id="count-due-later" class="text-green-600 font-semibold text-lg mb-2 inline">(<%= dueLater.length %>)</h5>
-<ul class="space-y-2">
-  <% dueLater.forEach(todo => { %>
-    <li class="Todo-Item flex items-center w-fit p-2 rounded hover:bg-purple-50 cursor-pointer">
-      <form method="POST" action="/todos/<%= todo.id %>/markAsCompleted?_method=PUT">
-        <input type="checkbox" id="checkbox-due-later-<%= todo.id %>" onchange="this.form.submit()" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" <%= todo.completed ? 'checked' : '' %> />
-      </form>
-      <label for="checkbox-due-later-<%= todo.id %>" class="ml-2 text-sm text-gray-600 cursor-pointer">
-        <%= todo.title %> - <%= todo.dueDate %>
-      </label>
-      <form method="POST" action="/todos/<%= todo.id %>?_method=DELETE">
-        <button type="submit" class="hidden trash-icon ml-2">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-          </svg>          
-        </button>
-      </form>
-    </li>
-  <% }) %>
-</ul>
+<div>
+  <div>
+    <!-- Overdue -->
+    <h5 title="Overdue" class="text-red-600 font-semibold text-lg mb-2 inline-block">Overdue</h5>
+    <h4 id="count-overdue" class="text-red-600 font-semibold text-lg mb-2 inline-block">(<%= overdue.length %>)</h4>
+    <ul class="space-y-2">
+      <% overdue.forEach(todo => { %>
+        <li class="Todo-Item flex items-center w-fit p-2 rounded hover:bg-purple-50 cursor-pointer">
+          <form method="POST" action="/todos/<%= todo.id %>/markAsCompleted?_method=PUT">
+            <input type="checkbox" id="checkbox-overdue-<%= todo.id %>" onchange="this.form.submit()" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" <%= todo.completed ? 'checked' : '' %> />
+          </form>
+          <label for="checkbox-overdue-<%= todo.id %>" class="ml-2 text-sm text-gray-600 cursor-pointer">
+            <%= todo.title %> - <%= todo.dueDate %>
+          </label>
+          <form method="POST" action="/todos/<%= todo.id %>?_method=DELETE">
+            <button type="submit" class="hidden trash-icon ml-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+              </svg>          
+            </button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+  <div>
+    <!-- Due Today -->
+    <h5 title="Due Today" class="text-blue-600 font-semibold text-lg mb-2 inline">Due Today</h5>
+    <h4 id="count-due-today" class="text-blue-600 font-semibold text-lg mb-2 inline">(<%= dueToday.length %>)</h4>
+    <ul class="space-y-2">
+      <% dueToday.forEach(todo => { %>
+        <li class="Todo-Item flex items-center w-fit p-2 rounded hover:bg-purple-50 cursor-pointer">
+          <form method="POST" action="/todos/<%= todo.id %>/markAsCompleted?_method=PUT">
+            <input type="checkbox" id="checkbox-due-today-<%= todo.id %>" onchange="this.form.submit()" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" <%= todo.completed ? 'checked' : '' %> />
+          </form>
+          <label for="checkbox-due-today-<%= todo.id %>" class="ml-2 text-sm text-gray-600 cursor-pointer">
+            <%= todo.title %> - <%= todo.dueDate %>
+          </label>
+          <form method="POST" action="/todos/<%= todo.id %>?_method=DELETE">
+            <button type="submit" class="hidden trash-icon ml-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+              </svg>          
+            </button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+  <div>
+    <!-- Due Later -->
+    <h5 title="Due Later" class="text-green-600 font-semibold text-lg mb-2 inline">Due Later</h5>
+    <h4 id="count-due-later" class="text-green-600 font-semibold text-lg mb-2 inline">(<%= dueLater.length %>)</h4>
+    <ul class="space-y-2">
+      <% dueLater.forEach(todo => { %>
+        <li class="Todo-Item flex items-center w-fit p-2 rounded hover:bg-purple-50 cursor-pointer">
+          <form method="POST" action="/todos/<%= todo.id %>/markAsCompleted?_method=PUT">
+            <input type="checkbox" id="checkbox-due-later-<%= todo.id %>" onchange="this.form.submit()" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" <%= todo.completed ? 'checked' : '' %> />
+          </form>
+          <label for="checkbox-due-later-<%= todo.id %>" class="ml-2 text-sm text-gray-600 cursor-pointer">
+            <%= todo.title %> - <%= todo.dueDate %>
+          </label>
+          <form method="POST" action="/todos/<%= todo.id %>?_method=DELETE">
+            <button type="submit" class="hidden trash-icon ml-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+              </svg>          
+            </button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</div>
