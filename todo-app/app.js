@@ -2,23 +2,57 @@ const express = require("express");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
-app.use(bodyParser.json());
 const path = require("path");
+const { Sequelize } = require("sequelize");
+const methodOverride = require("method-override"); // ✅ add this line
+
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method")); // ✅ and this line
+app.use(express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "ejs");
 
+// Home route - renders categorized todos
 app.get("/", async (request, response) => {
-  const allTodos = await Todo.getTodos();
-  if (request.accepts("html")) {
-    response.render("index", { allTodos });
-  } else {
-    response.json({
-      allTodos,
-    });
+  try {
+    const overdue = await Todo.overdue();
+    const dueToday = await Todo.dueToday();
+    const dueLater = await Todo.dueLater();
+
+    if (request.accepts("html")) {
+      response.render("index", { overdue, dueToday, dueLater });
+    } else {
+      response.json({
+        overdue,
+        dueToday,
+        dueLater,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    response.status(500).send("Something went wrong");
   }
 });
 
-app.use(express.static(path.join(__dirname, "public")));
+// Create new todo (form or API)
+app.post("/todos", async function (request, response) {
+  try {
+    const { title, dueDate } = request.body;
+    const todo = await Todo.addTodo({ title, dueDate });
+
+    if (request.accepts("html")) {
+      return response.redirect("/");
+    } else {
+      return response.json(todo);
+    }
+  } catch (error) {
+    console.log(error);
+    return response.status(422).json(error);
+  }
+});
+
+// API routes
 
 app.get("/todos", async function (request, response) {
   try {
@@ -40,21 +74,15 @@ app.get("/todos/:id", async function (request, response) {
   }
 });
 
-app.post("/todos", async function (request, response) {
-  try {
-    const todo = await Todo.addTodo(request.body);
-    return response.json(todo);
-  } catch (error) {
-    console.log(error);
-    return response.status(422).json(error);
-  }
-});
-
 app.put("/todos/:id/markAsCompleted", async function (request, response) {
-  const todo = await Todo.findByPk(request.params.id);
   try {
+    const todo = await Todo.findByPk(request.params.id);
     const updatedTodo = await todo.markAsCompleted();
-    return response.json(updatedTodo);
+    if (request.accepts("html")) {
+      return response.redirect("/");
+    } else {
+      return response.json(updatedTodo);
+    }
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
@@ -69,10 +97,10 @@ app.delete("/todos/:id", async function (request, response) {
       },
     });
 
-    if (deleted) {
-      return response.json(true);
+    if (request.accepts("html")) {
+      return response.redirect("/");
     } else {
-      return response.json(false);
+      return response.json(deleted ? true : false);
     }
   } catch (error) {
     console.log(error);
