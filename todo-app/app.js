@@ -1,16 +1,19 @@
 const express = require("express");
+var csrf = require("csurf");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
 const path = require("path");
 const { Sequelize } = require("sequelize");
-const methodOverride = require("method-override"); // ✅ add this line
+const methodOverride = require("method-override");
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method")); // ✅ and this line
+app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(cookieParser("shh secret"));
+app.use(csrf({ cookie: true }));
 app.set("view engine", "ejs");
 
 // Home route - renders categorized todos
@@ -19,14 +22,22 @@ app.get("/", async (request, response) => {
     const overdue = await Todo.overdue();
     const dueToday = await Todo.dueToday();
     const dueLater = await Todo.dueLater();
+    const completedTodo = await Todo.completedTodo();
 
     if (request.accepts("html")) {
-      response.render("index", { overdue, dueToday, dueLater });
+      response.render("index", {
+        overdue,
+        dueToday,
+        dueLater,
+        completedTodo,
+        csrfToken: request.csrfToken(),
+      });
     } else {
       response.json({
         overdue,
         dueToday,
         dueLater,
+        completedTodo,
       });
     }
   } catch (error) {
@@ -74,17 +85,22 @@ app.get("/todos/:id", async function (request, response) {
   }
 });
 
-app.put("/todos/:id/markAsCompleted", async function (request, response) {
+app.put("/todos/:id", async function (request, response) {
   try {
     const todo = await Todo.findByPk(request.params.id);
-    const updatedTodo = await todo.markAsCompleted();
+    if (!todo) {
+      return response.status(404).send("Todo not found");
+    }
+
+    const updatedTodo = await todo.setCompletionStatus(request.body.completed);
+
     if (request.accepts("html")) {
       return response.redirect("/");
     } else {
       return response.json(updatedTodo);
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return response.status(422).json(error);
   }
 });

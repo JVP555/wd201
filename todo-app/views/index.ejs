@@ -13,6 +13,7 @@
 
       <!-- Form to create a new todo -->
       <form method="POST" action="/todos">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <div class="flex gap-2 py-4">
           <div class="flex-auto">
             <input type="text" name="title" placeholder="What's next?" required class="border border-gray-300 rounded w-full p-2 text-sm text-gray-900" />
@@ -20,8 +21,6 @@
           <div class="flex-auto">
             <input type="date" name="dueDate" required class="border border-gray-300 rounded w-full p-2 text-sm text-gray-900 cursor-pointer" />
           </div>
-          
-          
           <div class="flex-none">
             <button type="submit" class="bg-green-600 text-white py-1.5 px-5 rounded font-medium">Add</button>
           </div>
@@ -29,7 +28,7 @@
       </form>
 
       <!-- Todos section -->
-      <%- include('todos', { overdue, dueToday, dueLater }) %>
+      <%- include('todos', { overdue, dueToday, dueLater, completedTodo }) %>
       <%- include('footer.ejs') %>
     </div>
   </div>

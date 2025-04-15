@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll({
         where: {
           dueDate: { [Op.lt]: new Date().toISOString().split("T")[0] },
+          completed: false,
         },
         order: [["dueDate", "ASC"]],
       });
@@ -27,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll({
         where: {
           dueDate: new Date().toISOString().split("T")[0],
+          completed: false,
         },
         order: [["id", "ASC"]],
       });
@@ -37,13 +39,23 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll({
         where: {
           dueDate: { [Op.gt]: new Date().toISOString().split("T")[0] },
+          completed: false,
         },
         order: [["dueDate", "ASC"]],
       });
     }
 
-    markAsCompleted() {
-      return this.update({ completed: true });
+    static async completedTodo() {
+      return this.findAll({
+        where: {
+          completed: true,
+        },
+        order: [["dueDate", "ASC"]],
+      });
+    }
+
+    setCompletionStatus(completed) {
+      return this.update({ completed });
     }
   }
 
