@@ -12,27 +12,72 @@
       <%- include('header.ejs') %>
 
       <!-- Form to create a new todo -->
-      <form method="POST" action="/todos">
+      <form id="todoForm" method="POST" action="/todos" novalidate>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
         <div class="flex gap-2 py-4">
           <div class="flex-auto">
-            <input type="text" name="title" title="title" id="title" placeholder="What's next?" required class="border border-gray-300 rounded w-full p-2 text-sm text-gray-900" />
+            <input
+              type="text"
+              name="title"
+              title="title"
+              id="title"
+              placeholder="What's next?"
+              required
+              class="border border-gray-300 rounded w-full p-2 text-sm text-gray-900"
+            />
           </div>
           <div class="flex-auto">
-            <input type="date" name="dueDate" title="dueDate" id="dueDate" required class="border border-gray-300 rounded w-full p-2 text-sm text-gray-900 cursor-pointer" />
+            <input
+              type="date"
+              name="dueDate"
+              title="dueDate"
+              id="dueDate"
+              required
+              class="border border-gray-300 rounded w-full p-2 text-sm text-gray-900 cursor-pointer"
+            />
           </div>
           <div class="flex-none">
-            <button type="submit" class="bg-green-600 text-white py-1.5 px-5 rounded font-medium">Add</button>
+            <button type="submit" class="bg-green-600 text-white py-1.5 px-5 rounded font-medium">submit</button>
           </div>
         </div>
       </form>
 
       <!-- Todos section -->
-      <%- include('todos', { overdue, dueToday, dueLater, completedTodo }) %>
+      <%- include('todos', { overdue, dueToday, dueLater, completedTodo,csrfToken }) %>
       <%- include('footer.ejs') %>
     </div>
   </div>
 
+  <!-- Client-side validation script -->
+  <script>
+    const form = document.getElementById("todoForm");
+    const titleInput = document.getElementById("title");
+    const dueDateInput = document.getElementById("dueDate");
 
+    // Validate on submit
+    form.addEventListener("submit", function (e) {
+      let isValid = true;
+
+      // Reset custom messages
+      titleInput.setCustomValidity("");
+      dueDateInput.setCustomValidity("");
+
+      // Trim title and check
+      if (titleInput.value.trim() === "") {
+        titleInput.setCustomValidity("Please enter a title.");
+        isValid = false;
+      }
+
+      if (!dueDateInput.value) {
+        dueDateInput.setCustomValidity("Please select a due date.");
+        isValid = false;
+      }
+
+      if (!isValid) {
+        e.preventDefault();
+        form.reportValidity(); // shows custom validation messages
+      }
+    });
+  </script>
 </body>
 </html>
