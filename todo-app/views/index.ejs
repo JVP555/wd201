@@ -14,33 +14,40 @@
       <!-- Form to create a new todo -->
       <form id="todoForm" method="POST" action="/todos" novalidate>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-        <div class="flex gap-2 py-4">
-          <div class="flex-auto">
-            <input
-              type="text"
-              name="title"
-              title="title"
-              id="title"
-              placeholder="What's next?"
-              required
-              class="border border-gray-300 rounded w-full p-2 text-sm text-gray-900"
-            />
-          </div>
-          <div class="flex-auto">
-            <input
-              type="date"
-              name="dueDate"
-              title="dueDate"
-              id="dueDate"
-              required
-              class="border border-gray-300 rounded w-full p-2 text-sm text-gray-900 cursor-pointer"
-            />
-          </div>
-          <div class="flex-none">
-            <button type="submit" class="bg-green-600 text-white py-1.5 px-5 rounded font-medium">submit</button>
-          </div>
+      
+        <!-- Title Input Field -->
+        <div class="my-4">
+          <label for="title" class="block text-sm text-gray-600">Title:</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="What's next?"
+            required
+            class="border border-gray-300 rounded w-full p-2 text-sm text-gray-900"
+          />
+        </div>
+      
+        <!-- Due Date Input Field -->
+        <div class="my-4">
+          <label for="dueDate" class="block text-sm text-gray-600">Due Date:</label>
+          <input
+            type="date"
+            name="dueDate"
+            id="dueDate"
+            required
+            class="border border-gray-300 rounded w-full p-2 text-sm text-gray-900 cursor-pointer"
+          />
+        </div>
+      
+        <!-- Submit Button -->
+        <div>
+          <button type="submit" class="bg-green-600 text-white py-1.5 px-5 rounded font-medium w-full">
+            Submit
+          </button>
         </div>
       </form>
+      
 
       <!-- Todos section -->
       <%- include('todos', { overdue, dueToday, dueLater, completedTodo,csrfToken }) %>
